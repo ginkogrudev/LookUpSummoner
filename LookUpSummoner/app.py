@@ -15,9 +15,6 @@ def hello():
     """Renders a sample page."""
     return "Hello World!"
 
-def get_ranked_stats():
-    #TODO
-    return "TODO"
 
 if __name__ == '__main__':
     import os
