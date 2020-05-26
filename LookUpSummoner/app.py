@@ -1,8 +1,7 @@
-from flask import Flask
+from flask import Flask,render_template
 import requests
-from math import ceil
-riot_api_key = 'RGAPI-d094861d-a242-443c-b6b7-c485ea971ac8'
-
+import jinja2
+#TODO add riot key
 app = Flask(__name__)
 
 servers = {
@@ -36,14 +35,14 @@ def get_ranked_info(summonerId,region):
     ranked_winratio = (ranked_wins/ranked_games_count)*100
     return 'You are a %s %s player with %d points with a  %d Winrate' % (ranked_tier,ranked_rank,ranked_points,ranked_winratio)
 
-@app.route('/')
-def hello():
-    """Renders a sample page."""
-    id = get_summoner_id('GinkoTHEKILLER','EUNE')
-    return get_ranked_info(id,'EUNE')
+@app.route('/',methods['GET','POST'])
+def index():
+    return render_template('layout.html.jinja')
 
+@app.route('/summoner/<summoner_name>',methods['GET'])
+def summoner(summoner_name):
 
-
+    return render_template('summoner.html')
 if __name__ == '__main__':
     import os
     HOST = os.environ.get('SERVER_HOST', 'localhost')
